@@ -6,13 +6,12 @@ import Product from '../models/Product.js';
 
 let mongoServer;
 
-// THE ONLY CHANGE IS HERE: We give the timeout directly to beforeAll.
-// This tells Jest to give this specific setup process up to 30 seconds to complete.
+
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
   await mongoose.connect(mongoUri);
-}, 30000); // <-- THE FIX IS HERE
+}, 30000); 
 
 afterAll(async () => {
   await mongoose.disconnect();
