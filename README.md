@@ -1,88 +1,100 @@
-Inventory Management API
+# Inventory Management API
+
 A robust backend API built for an internship challenge to track products in a warehouse. The application is built with Node.js, Express, and MongoDB, following RESTful principles and includes a full suite of unit tests.
 
-✨ Key Features
-✅ Full CRUD Functionality: Create, Read, Update, and Delete products.
+---
 
-✅ Robust Inventory Logic: Atomically increase and decrease stock quantities.
+## ✨ Key Features
 
-✅ Smart Error Handling: Prevents stock from going below zero and returns clear error messages for invalid operations (400, 404).
+- ✅ **Full CRUD Functionality**: Create, Read, Update, and Delete products.  
+- ✅ **Robust Inventory Logic**: Atomically increase and decrease stock quantities.  
+- ✅ **Smart Error Handling**: Prevents stock from going below zero and returns clear error messages for invalid operations (400, 404).  
+- ✅ **Low-Stock Reporting**: A dedicated endpoint to find all products that have fallen below their specified `low_stock_threshold`.  
+- ✅ **Unit Tested**: Business-critical logic for inventory management is validated with unit tests using Jest and Supertest.  
 
-✅ Low-Stock Reporting: A dedicated endpoint to find all products that have fallen below their specified low_stock_threshold.
+---
 
-✅ Unit Tested: Business-critical logic for inventory management is validated with unit tests using Jest and Supertest.
+## 🛠️ Tech Stack
 
-🛠️ Tech Stack
-Backend: Node.js, Express.js
+- **Backend**: Node.js, Express.js  
+- **Database**: MongoDB with Mongoose ODM  
+- **Testing**: Jest, Supertest, MongoDB-Memory-Server  
+- **Environment Management**: Dotenv  
 
-Database: MongoDB with Mongoose ODM
+---
 
-Testing: Jest, Supertest, MongoDB-Memory-Server
+## 🚀 Getting Started
 
-Environment Management: Dotenv
+Follow these instructions to get a copy of the project up and running on your local machine.
 
-🚀 Getting Started
-Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+### Prerequisites
+- Node.js (**v18.x or newer recommended**)  
+- A running MongoDB instance (e.g., local or MongoDB Atlas)  
 
-Prerequisites
-Node.js (v18.x or newer recommended)
+### Installation & Setup
 
-npm (comes with Node.js)
-
-A running MongoDB instance (either locally or on a cloud service like MongoDB Atlas)
-
-Installation & Setup
-Clone the repository:
-
+**Clone the repository:**
+```bash
 git clone https://github.com/sushant3004git/inventory_api.git
-cd inventory-management-api
+cd inventory_api
+```
 
-Install project dependencies:
-
+**Install project dependencies:**
+```bash
 npm install
+```
 
-Set up environment variables:
-Create a .env file in the root of the project and add the following configuration. This file stores your secret database connection string.
+**Set up environment variables:**  
+Create a `.env` file in the root of the project and add your database connection string.
 
+```env
 # .env
 NODE_ENV=development
 PORT=5000
 MONGO_URI=your_mongodb_connection_string_here
+```
 
-Run the development server:
-
+**Run the development server:**
+```bash
 npm run dev
+```
 
-The API server will start on http://localhost:5000 (or the port you specified).
+The API server will start on [http://localhost:5000](http://localhost:5000).
 
-🧪 Running Tests
-To ensure the reliability and integrity of the business logic, this project includes a suite of automated tests.
+---
 
-To run the tests, execute the following command in your terminal:
+## 🧪 Running Tests
 
+To run the suite of automated tests and verify the business logic, execute the following command:
+
+```bash
 npm test
+```
 
-📄 API Documentation
-For detailed information on all available endpoints, request bodies, and example responses, please see the complete documentation here:
+---
 
-➡️ [**API Documentation**](./API_DOCS.md)
+## 📄 API Documentation
 
-📂 Project Structure
+For detailed information on all available endpoints, request bodies, and example responses, please see the complete documentation here:  
+
+➡️ **[API Documentation](API_DOCS.md)**
+
+---
+
+## 📂 Project Structure
+
+```
 inventory-management-api/
 ├── config/             # Database connection logic
-│   └── db.js
 ├── controllers/        # Business logic for routes
-│   └── productController.js
 ├── middlewares/        # Custom middleware (e.g., error handling)
-│   └── errorMiddleware.js
 ├── models/             # Mongoose schemas
-│   └── Product.js
 ├── routes/             # API route definitions
-│   └── productRoutes.js
 ├── tests/              # Automated tests
-│   └── product.test.js
 ├── .gitignore          # Files to be ignored by Git
+├── app.js              # Express app definition
 ├── index.js            # Main server entry point
 ├── package.json        # Project dependencies and scripts
 ├── API_DOCS.md         # Detailed API documentation
 └── README.md           # This file
+```
