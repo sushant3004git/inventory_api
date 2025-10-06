@@ -1,29 +1,37 @@
-Inventory Management API Documentation
+# Inventory Management API Documentation
+
 Welcome to the Inventory Management API documentation. This document provides detailed information on all available endpoints.
 
-Base URL: /api
+**Base URL:** `/api`
 
-Product Management (CRUD)
-These endpoints handle the core Create, Read, Update, and Delete operations for products.
+---
 
-1. Create a Product
+## 📦 Product Management (CRUD)
+
+These endpoints handle the core **Create, Read, Update, and Delete** operations for products.
+
+---
+
+### 1. Create a Product
+
+**Endpoint:** `POST /products`  
+
 Creates a new product in the inventory.
 
-Endpoint: POST /products
-
-Request Body (JSON):
-
+**Request Body (JSON):**
+```json
 {
   "name": "Wireless Keyboard",
   "description": "A sleek mechanical wireless keyboard.",
   "stock_quantity": 75,
   "low_stock_threshold": 15
 }
+```
 
-name and stock_quantity are required.
+> **Required fields:** `name`, `stock_quantity`
 
-Success Response (201 Created):
-
+**Success Response (201 Created):**
+```json
 {
   "_id": "67f5a9b8c7d6e5f4a3b2c1d0",
   "name": "Wireless Keyboard",
@@ -33,102 +41,142 @@ Success Response (201 Created):
   "createdAt": "2025-10-26T12:00:00.000Z",
   "updatedAt": "2025-10-26T12:00:00.000Z"
 }
+```
 
-Error Response (400 Bad Request):
-
+**Error Response (400 Bad Request):**
+```json
 {
   "message": "Product name and stock_quantity are required"
 }
+```
 
-2. Get All Products
-Retrieves a list of all products in the inventory.
+---
 
-Endpoint: GET /products
+### 2. Get All Products
 
-Success Response (200 OK): An array of product objects.
+**Endpoint:** `GET /products`  
 
-3. Get a Single Product by ID
-Retrieves a single product by its unique MongoDB _id.
+Retrieves a list of all products.  
 
-Endpoint: GET /products/:id
+**Success Response (200 OK):**
+- Returns an **array of product objects**
 
-Success Response (200 OK): A single product object.
+---
 
-Error Response (404 Not Found):
+### 3. Get a Single Product by ID
 
+**Endpoint:** `GET /products/:id`  
+
+Retrieves a product by its unique MongoDB `_id`.
+
+**Success Response (200 OK):**
+- Returns a **single product object**
+
+**Error Response (404 Not Found):**
+```json
 {
   "message": "Product not found"
 }
+```
 
-4. Update a Product
-Updates a product's details. You only need to provide the fields you wish to change.
+---
 
-Endpoint: PUT /products/:id
+### 4. Update a Product
 
-Request Body (JSON):
+**Endpoint:** `PUT /products/:id`  
 
+Updates product details. Only provide the fields you want to change.
+
+**Request Body (JSON):**
+```json
 {
   "description": "An updated description for the keyboard.",
   "low_stock_threshold": 10
 }
+```
 
-Success Response (200 OK): The fully updated product object.
+**Success Response (200 OK):**
+- Returns the **fully updated product object**
 
-5. Delete a Product
-Permanently deletes a product from the inventory.
+---
 
-Endpoint: DELETE /products/:id
+### 5. Delete a Product
 
-Success Response (200 OK):
+**Endpoint:** `DELETE /products/:id`  
 
+Deletes a product permanently.
+
+**Success Response (200 OK):**
+```json
 {
   "message": "Product deleted successfully"
 }
+```
 
-Inventory Management
-These endpoints handle stock-specific operations.
+---
 
-1. Increase Stock
-Increases the stock_quantity of a product by a specified amount.
+## 📊 Inventory Management
 
-Endpoint: POST /products/:id/increase
+Endpoints for stock-specific operations.
 
-Request Body (JSON):
+---
 
+### 1. Increase Stock
+
+**Endpoint:** `POST /products/:id/increase`  
+
+Increases a product’s stock by the given amount.
+
+**Request Body (JSON):**
+```json
 {
   "amount": 25
 }
+```
 
-Success Response (200 OK): The updated product object with the new stock_quantity.
+**Success Response (200 OK):**
+- Returns the updated product with new `stock_quantity`.
 
-Error Response (400 Bad Request):
-
+**Error Response (400 Bad Request):**
+```json
 {
   "message": "Invalid amount: must be a positive number"
 }
+```
 
-2. Decrease Stock
-Decreases the stock_quantity of a product by a specified amount.
+---
 
-Endpoint: POST /products/:id/decrease
+### 2. Decrease Stock
 
-Request Body (JSON):
+**Endpoint:** `POST /products/:id/decrease`  
 
+Decreases a product’s stock by the given amount.
+
+**Request Body (JSON):**
+```json
 {
   "amount": 10
 }
+```
 
-Success Response (200 OK): The updated product object with the new stock_quantity.
+**Success Response (200 OK):**
+- Returns the updated product with new `stock_quantity`.
 
-Error Response (400 Bad Request): Sent if the amount is greater than the available stock.
-
+**Error Response (400 Bad Request):**
+```json
 {
   "message": "Insufficient stock"
 }
+```
 
-3. Get Low Stock Products
-Retrieves an array of all products where the stock_quantity is less than the low_stock_threshold.
+---
 
-Endpoint: GET /products/low-stock
+### 3. Get Low Stock Products
 
-Success Response (200 OK): An array of product objects that are low on stock. If no products are low on stock, an empty array [] is returned.
+**Endpoint:** `GET /products/low-stock`  
+
+Retrieves all products where `stock_quantity < low_stock_threshold`.
+
+**Success Response (200 OK):**
+- Returns an array of low-stock products.  
+- If none are low on stock: `[]`
